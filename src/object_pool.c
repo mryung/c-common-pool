@@ -7,18 +7,38 @@
 
 Pool_Object * borrowObject(Object_Pool* objectPool){
 	int currentPoolSize;
-	POOOL_CONFIG * config
+	Pool_Object * value;
+	POOOL_CONFIG * config;
+	Pool_Factory factory;
 	config = objectPool->config;
 	currentPoolSize = objectPool->currentPoolSize;
-	if(currentPoolSize > 0){
+	
 		//从空闲节点上摘下一个
-		while(True){
-			objectPool->currentPoolSize
+	while(True){
+		if(objectPool->idelList->len > 0){
+			value = listGetAndDelHeadValue(objectPool->idelList)
+			if(value){
+				value->borrow_times++;
+				return value;
+			}else{
+				//阻塞等待
+				
+			}
+		}else{
+			break;
 		}
-		
 	}
 	if(currentPoolSize > config.max_active){
 		printf("over line the pool\n")
+		return NULL;
+	}else{
+		//得到创建一个连接
+		value = newPoolObject(objectPool->factory);
+		if(value){
+			value->borrow_times++;
+			objectPool->currentPoolSize++;
+			return value;
+		}
 		return NULL;
 	}
 }
@@ -36,8 +56,11 @@ void returnObject(Object_Pool* objectPool,Pool_Object * object)
 	returnPoolSize = objectPool->currentPoolSize + 1;
 	
 	if(returnPoolSize > objectPool->config->max_idle){
+
 		//销毁这个对象
 		destroyPoolObject(object);
+		objectPool->config--;
+	
 	}else{
 		//更行租借时间，返回空闲列表
 		object->last_borrow_time = getCurrentMillisecond();

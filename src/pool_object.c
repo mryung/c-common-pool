@@ -3,9 +3,16 @@
 #include "utils/zmalloc.h"
 #include "utils/zutils.h"
 
-Pool_Object * newPoolObject(Pool_Factory* factory,void * object){
+Pool_Object * newPoolObject(Pool_Factory* factory){
+	void * value;
 	Pool_Object * object;
 
+	value = factory->create_method(factory->initValue);
+	if(object == NULL){
+		//内存分配失败
+		printf("create pool object error\n");
+		return NULL;
+	}
 	object = zmalloc(size(Pool_Object));
 	if(object == NULL){
 		//内存分配失败

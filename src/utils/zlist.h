@@ -49,8 +49,9 @@ list *listAddNodeTail(list *list, void *value);
 list *listInsertNode(list *list, listNode *old_node, void *value, int after);
 void listDelNode(list *list, listNode *node);
 
-listNode * listDelHead(list *list);
-listNode * listDelTail(list *list);
+void * listGetAndDelHeadValue(list *list);
+
+void * listGetAndDelTailValue(list *list);
 
 
 listIter *listGetIterator(list *list, int direction);

@@ -45,6 +45,8 @@ typedef Boolean (*validate_object)(void *);
 
 typedef struct{
 
+	void * initValue;
+
 	make_object create_method;
 	
 	destroy_object destroy_method;

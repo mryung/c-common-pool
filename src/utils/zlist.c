@@ -148,6 +148,55 @@ void listDelNode(list *list, listNode *node)
     list->len--;
 }
 
+/**
+*得到头value
+*/
+void * listGetAndDelHeadValue(list *list)
+
+{
+	listNode node;
+	void* value;
+	node =	list->head;
+	if(node){
+		if(list->len == 1){
+			 list->head = list->tail = NULL;
+    		 list->len = 0;
+		}else{
+			list->head = node->next;
+			node->next->prev = list->head;
+			list->len--;
+		}
+
+		value = node->value;
+		zfree(node);
+		return value;
+	}
+	return NULL;
+}
+
+void * listGetAndDelTailValue(list *list){
+	listNode node;
+	void* value;
+	node =	list->tail;
+	if(node){
+		if(list->len == 1){
+			 list->head = list->tail = NULL;
+			 list->len = 0;
+		}else{
+			list->tail= node->prev;
+			node->prev->next = list->tail;
+			list->len--;
+		}
+		value = node->value;
+		zfree(node);
+		return value;
+	}
+	return NULL;
+
+}
+
+
+
 /* Returns a list iterator 'iter'. After the initialization every
  * call to listNext() will return the next element of the list.
  *
