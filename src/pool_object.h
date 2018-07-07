@@ -1,8 +1,9 @@
-#ifndef  POOL_OBJECT
-#define  POOL_OBJECT
+#ifndef  __POOL_OBJECT__
+#define  __POOL_OBJECT__
 
 #include "utils/z_type.h"
 
+typedef void (*destory_pool_object)(void *);
 
 typedef struct{
 
@@ -23,13 +24,18 @@ typedef struct{
 	S64 borrow_times; 
 
 
+
 	/**
 	* 真正对象
 	*/
 	void * object;
 
+	destory_pool_object  destory_method;
+
 	
 } Pool_Object;
+
+
 
 typedef void * (*make_object)(void *);
 
@@ -49,6 +55,9 @@ typedef struct{
 
 
 Pool_Object * newPoolObject(void *);
+
+void destroyPoolObject(Pool_Object * object);
+
 
 #endif
 

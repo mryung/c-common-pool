@@ -1,5 +1,5 @@
-#ifndef Z_UTILS
-#define Z_UTILS
+#ifndef __Z_UTILS__
+#define __Z_UTILS__
 
 #include "ztype.h"
 

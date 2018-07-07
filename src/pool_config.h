@@ -1,5 +1,5 @@
-#ifndef CONNECT_POOL_CONFIG
-#define CONNECT_POOL_CONFIG
+#ifndef __POOL_CONFIG__
+#define __POOL_CONFIG__
 
 #include "utils/z_type.h"
 
@@ -20,12 +20,6 @@ typedef struct{
 
 	S64 time_between_eviction_runs_millis;
 	
-} Connect_POOOL_CONFIG;
-
-typedef struct{
-	
-}
-
-
+} POOOL_CONFIG;
 
 #endif

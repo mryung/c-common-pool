@@ -3,7 +3,7 @@
 #include "utils/zmalloc.h"
 #include "utils/zutils.h"
 
-Pool_Object * newPoolObject(void * object){
+Pool_Object * newPoolObject(Pool_Factory* factory,void * object){
 	Pool_Object * object;
 
 	object = zmalloc(size(Pool_Object));
@@ -16,14 +16,14 @@ Pool_Object * newPoolObject(void * object){
 	object->object = object;
 	object->create_time = getCurrentMillisecond();
 	object->borrow_times = 0;
-
+	object->destory_method = factory->destroy_method;
 	return object;
 }
 
-void destroyPoolObject(Pool_Factory* factory,Pool_Object * object){
-
-	factory->destroy_method(object->object);
+void destroyPoolObject(Pool_Object * object){
+	if(object->object != null){
+		object->destory_method(object->object);
+	}
 	zfree(object);
-	
 }
 

@@ -1,6 +1,6 @@
 
-#ifndef __ADLIST_H__
-#define __ADLIST_H__
+#ifndef __Z_LIST_H__
+#define __Z_LIST_H__
 
 /* Node, List, and Iterator are the only data structures used currently. */
 
@@ -48,6 +48,11 @@ list *listAddNodeHead(list *list, void *value);
 list *listAddNodeTail(list *list, void *value);
 list *listInsertNode(list *list, listNode *old_node, void *value, int after);
 void listDelNode(list *list, listNode *node);
+
+listNode * listDelHead(list *list);
+listNode * listDelTail(list *list);
+
+
 listIter *listGetIterator(list *list, int direction);
 listNode *listNext(listIter *iter);
 void listReleaseIterator(listIter *iter);

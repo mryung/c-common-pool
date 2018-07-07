@@ -1,6 +1,6 @@
 
-#ifndef Z_MALLOC
-#define Z_MALLOC
+#ifndef __Z_MALLOC__
+#define __Z_MALLOC__
 
 #include "ztype.h"
 
